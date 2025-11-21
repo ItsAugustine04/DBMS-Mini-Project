@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cloud Kitchen Control Panel</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header>
+      <div class="brand">
+        <div class="logo">CK</div>
+        <div>
+          <h1>Cloud Kitchen HQ</h1>
+          <p class="muted">Live ordering, fulfillment & delivery control center.</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <span class="badge" id="health-indicator">Checking API...</span>
+        <button id="refresh-all" class="ghost">Sync Data</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="metrics">
+        <article class="metric-card">
+          <div>
+            <p class="muted">Active Orders</p>
+            <h3 id="metric-active">0</h3>
+          </div>
+          <span class="metric-chip success">Live</span>
+        </article>
+        <article class="metric-card">
+          <div>
+            <p class="muted">Delivered Today</p>
+            <h3 id="metric-delivered">0</h3>
+          </div>
+          <span class="metric-chip">Today</span>
+        </article>
+        <article class="metric-card">
+          <div>
+            <p class="muted">Revenue (24h)</p>
+            <h3 id="metric-revenue">₹0</h3>
+          </div>
+          <span class="metric-chip accent">₹</span>
+        </article>
+        <article class="metric-card">
+          <div>
+            <p class="muted">Avg. Basket</p>
+            <h3 id="metric-basket">₹0</h3>
+          </div>
+          <span class="metric-chip neutral">Cart</span>
+        </article>
+      </section>
+
+      <section class="panel">
+        <h2>1. Pick Customer & Kitchen</h2>
+        <div class="grid">
+          <label>
+            Customer
+            <select id="customer-select">
+              <option value="">Loading...</option>
+            </select>
+          </label>
+          <label>
+            Cloud Kitchen
+            <select id="kitchen-select">
+              <option value="">Select a customer first</option>
+            </select>
+          </label>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>2. Menu & Cart</h2>
+        <div class="menu-wrapper">
+          <div class="menu" id="menu-list">
+            <p class="muted">Select a kitchen to load its menu.</p>
+          </div>
+          <div class="cart" id="cart">
+            <h3>Cart</h3>
+            <div id="cart-items" class="stack muted">No items yet.</div>
+            <div class="cart-total">
+              <span>Total</span>
+              <strong id="cart-total">₹0</strong>
+            </div>
+            <button id="place-order" disabled>Place Order</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-header">
+          <h2>3. Live Orders</h2>
+          <button id="refresh-orders">Refresh</button>
+        </div>
+        <div id="orders-list" class="stack muted">
+          Orders will appear here once placed.
+        </div>
+      </section>
+    </main>
+
+    <div id="toast"></div>
+
+    <template id="menu-item-template">
+      <div class="menu-item">
+        <div>
+          <strong class="menu-name"></strong>
+          <span class="muted menu-price"></span>
+        </div>
+        <div class="menu-actions">
+          <input type="number" min="1" value="1" class="menu-qty" />
+          <button class="add-to-cart">Add</button>
+        </div>
+      </div>
+    </template>
+
+    <template id="order-card-template">
+      <article class="order-card">
+        <header>
+          <div>
+            <strong class="order-title"></strong>
+            <span class="muted order-subtitle"></span>
+          </div>
+          <div class="order-total"></div>
+        </header>
+        <ul class="order-items"></ul>
+        <div class="order-footer">
+          <label>
+            Status
+            <select class="order-status">
+              <option>Placed</option>
+              <option>Preparing</option>
+              <option>Out for Delivery</option>
+              <option>Delivered</option>
+              <option>Cancelled</option>
+            </select>
+          </label>
+          <label>
+            Delivery Partner
+            <select class="order-partner">
+              <option value="">Unassigned</option>
+            </select>
+          </label>
+          <button class="order-update">Update</button>
+        </div>
+      </article>
+    </template>
+
+    <script src="./app.js" type="module"></script>
+  </body>
+</html>
+

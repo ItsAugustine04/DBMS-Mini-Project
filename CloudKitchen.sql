@@ -1,3 +1,4 @@
+
 DROP DATABASE IF EXISTS CloudKitchen;
 CREATE DATABASE CloudKitchen;
 USE CloudKitchen;
